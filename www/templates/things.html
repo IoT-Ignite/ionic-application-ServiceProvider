@@ -1,0 +1,28 @@
+<ion-view title="Things" id="page13" class=" " ng-init="constructThingsCtrl(false)">
+    <ion-content>
+      <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)"
+        dismiss-on-timeout="{{alert.timeout}}">{{alert.msg}}</div>
+      <ion-list>
+        <div ng-repeat="node in nodes">
+          <ion-item class="item-icon-right"
+                    ng-click="toggleGroup(node);"
+                     ng-class="{active: isGroupShown(node), balanced: node.status, assertive: !node.status}">
+            <i class="icon ion-ios-trash-outline" ng-click="unregisterNodeConfirm('{{node.nodeId}}')"></i>
+            <i class="ion-ios-arrow-down" ng-class="{'ion-ios-arrow-up': isGroupShown(node)}"></i> {{node.nodeId}}
+          </ion-item>
+          <ion-item class="item-icon-right accordion-item-grid"
+                    ng-repeat="thing in node.things"
+                    ng-show="isGroupShown(node)"
+                    ng-class="{balanced: thing.status, assertive: !thing.status}" ng-click="unregisterThingConfirm('{{node.nodeId}}', '{{thing.id}}')">
+              <i class="icon ion-ios-trash-outline"></i>
+            {{thing.id}}
+          </ion-item>
+        </div>
+      </ion-list>
+
+      <div id="things-button-bar11" class=" button-bar "></div>
+      <div class="spacer" style="height: 39px;"></div>
+      <a ui-sref="menu.nodeScan" id="things-button25" class=" button button-positive  button-block ">ADD NODE</a>
+      <button id="refreshThings-button26" class="button button-positive  button-block" ng-click="constructThingsCtrl(true)">REFRESH</button>
+    </ion-content>
+</ion-view>

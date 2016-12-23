@@ -1,0 +1,51 @@
+<ion-view title="Gateway Detail" id="page11" class=" " ng-init="constructGatewayDetailCtrl(false)">
+    <ion-content class="has-header" ng-model="deviceDetail">
+      <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)"
+        dismiss-on-timeout="{{alert.timeout}}">{{alert.msg}}</div>
+
+        <div class="list wrapper-special-gw">
+          <a class="item item-avatar" href="#">
+            <img src="img/icon-gw.png">
+            <h2 class="wrapper-device-detail">{{deviceDetail.deviceName}}</h2>
+          </a>
+        </div>
+
+        <div id="gatewayDetail-button-bar9" class=" button-bar "></div>
+        <ion-list id="gatewayDetail-list11" class=" ">
+            <ion-item id="gatewayDetail-list-item34" class="">Mode Status
+                <span class="item-note">{{deviceDetail.deviceModeStatus}}</span>
+            </ion-item>
+            <ion-item id="gatewayDetail-list-item36" class="">Device ID
+                <span class="item-note">{{deviceDetail.deviceId}}</span>
+            </ion-item>
+            <ion-item id="gatewayDetail-list-item35" class="">IP Adress
+                <span class="item-note">{{deviceDetail.deviceIp}}</span>
+            </ion-item>
+            <ion-item class="dark" id="gatewayDetail-list-item43">Connected Things
+                <span class="item-note">{{thingsCount}}</span>
+            </ion-item>
+
+            <ion-item class="dark" id="gatewayDetail-list-item43">
+              <span class="pull-left" style="line-height: 52px;">
+                Label
+              </span>
+
+              <span class="item-note">
+                <a  ng-click="updateGateway()" id="gatewayDetail-button24" class=" button button-positive button-block button-update">UPDATE</a>
+              </span>
+
+              <span class="item-note wrapper-list-general-form">
+                <form id="updateGetaway-form1" name="updateGetaway" class="list general-form">
+                  <label class="item item-input" id="label-input1">
+                      <input type="text" placeholder="Label" ng-model="deviceDetail.deviceName" style="margin: 0;">
+                  </label>
+                </form>
+              </span>
+            </ion-item>
+            
+        </ion-list>
+        <div class="spacer" style="height: 30px;"></div>
+        <a ui-sref="menu.things" id="gatewayDetail-button23" class=" button button-positive  button-block ">NODE LIST</a>
+        <button id="refreshDetail-button26" class="button button-positive  button-block" ng-click="constructGatewayDetailCtrl(true)">REFRESH</button>
+    </ion-content>
+</ion-view>

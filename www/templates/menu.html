@@ -1,0 +1,30 @@
+<ion-side-menus enable-menu-with-back-views="false" ng-controller="menuCtrl">
+
+    <ion-side-menu-content>
+        <ion-nav-bar class="bar bar-header">
+            <div class="wrapper-bar-logo">
+                <a href="#/menu/gateways">
+                    <img src="img/devzone-logo.png" height="auto" class="devzone-logo inside-pages-logo">
+                </a>
+            </div>
+
+            <ion-nav-back-button></ion-nav-back-button>
+            <ion-nav-buttons side="right">
+                <button class="button button-icon button-clear ion-navicon" menu-toggle="right"></button>
+            </ion-nav-buttons>
+        </ion-nav-bar>
+        <ion-nav-view name="side-menu21"></ion-nav-view>
+    </ion-side-menu-content>
+
+    <ion-side-menu side="right" id="side-menu21">
+        <ion-content padding="false" class="side-menu-right">
+            <ion-list id="menu-list1" class="special-menu-list">
+                <ion-item id="menu-list-item1" ui-sref="menu.gateways" menu-close="" class="special-menu-item">GATEWAYS</ion-item>
+                <ion-item id="menu-list-item37" ui-sref="menu.about" menu-close="" class="special-menu-item">ABOUT</ion-item>
+                <ion-item id="menu-list-item6" ui-sref="menu.profile" menu-close="" class="special-menu-item">CHANGE PASSWORD</ion-item>
+                <ion-item id="menu-list-item37" ng-click="logout()" menu-close="" class="special-menu-item">LOGOUT</ion-item>
+            </ion-list>
+        </ion-content>
+    </ion-side-menu>
+
+</ion-side-menus>

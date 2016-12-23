@@ -1,0 +1,23 @@
+<ion-view title="Node Scan" id="page15" class="" ng-controller="scanCtrl" ng-init="constructList('node', false)">
+    <ion-content padding="true" class="has-header">
+      <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)"
+        dismiss-on-timeout="{{alert.timeout}}">{{alert.msg}}</div>
+
+      <div ng-hide="scanCompleted" style="text-align: center;">
+        <br><br>
+        DETECTING NODES
+        <br><br>
+        <ion-spinner class="spinner-android"></ion-spinner>
+        <br><br>
+      </div>
+      <ion-list id="discoverNode-list16" class="">
+        <ion-item class="item-icon-right dark" ng-repeat="item in itemList">
+          <h2 ng-click="setName(item)" ui-sref="menu.addNode" class="ion-wifi">
+            {{item}}
+          </h2>
+        </ion-item>
+      </ion-list>
+      <button id="discoverNode-button26" class="button button-positive button-block button-refresh" ng-click="constructList('node', true)">REFRESH</button>
+
+    </ion-content>
+</ion-view>

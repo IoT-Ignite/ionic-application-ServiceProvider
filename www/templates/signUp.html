@@ -1,0 +1,57 @@
+<ion-view title="Home" hide-nav-bar="true" id="page5" class="" ng-controller="signUpCtrl">
+    <ion-content padding="true" class="display-table">
+
+        <!-- display-table-row -->
+        <div class="display-table-row">
+            <div class="display-table-cell wrapper-signup-page">
+                <a href="#/home">
+                    <img src="img/devzone-logo.png" height="auto" class="devzone-logo">
+                </a>
+            </div>
+        </div>
+
+        <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)"
+          dismiss-on-timeout="{{alert.timeout}}">{{alert.msg}}</div>
+
+        <div ng-show="apiRunning" style="text-align: center;">
+          <br><br>
+          CREATING USER
+          <br><br>
+          <ion-spinner class="spinner-android"></ion-spinner>
+          <br><br>
+        </div>
+        <!-- end display-table-row -->
+
+        <!-- display-table-row -->
+        <div class="display-table-row">
+            <div class="display-table-cell">
+                <form id="signUp-form2" class="list general-form">
+
+                    <div class="divider" style="height: 10px;"></div>
+                    <label class="item item-input " id="signUp-input3" style="margin-bottom: 20px;">
+                        <input type="text" placeholder="Service Name" ng-model="data.brand">
+                    </label>
+                    <label class="item item-input m-b-20" id="signUp-input3">
+                        <input type="text" placeholder="Name" ng-model="data.name">
+                    </label>
+                    <label class="item item-input m-b-20" id="signUp-input3">
+                        <input type="text" placeholder="Surname" ng-model="data.surname">
+                    </label>
+                    <label class="item item-input m-b-20" id="signUp-input10">
+                        <input type="text" placeholder="Email" ng-model="data.email">
+                    </label>
+                    <label class="item item-input m-b-20" id="signUp-input4">
+                        <input type="password" placeholder="Password" ng-model="data.password">
+                    </label>
+
+                    <label class="item item-input m-b-40" id="signUp-input4">
+                        <input type="password" placeholder="Re-Password" ng-model="data.repassword">
+                    </label>
+
+                    <button ng-hide="apiRunning" class="button button-positive button-block" ng-click="signUp()">SIGN UP</button>
+                </form>
+            </div>
+        </div>
+        <!-- end display-table-row -->
+    </ion-content>
+</ion-view>

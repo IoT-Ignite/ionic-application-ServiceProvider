@@ -1,0 +1,39 @@
+<ion-view title="Home" hide-nav-bar="true" id="page4" class="" ng-controller="signInCtrl" ng-init="constructPage()">
+    <ion-content padding="true" class="display-table">
+
+        <!-- display-table-row -->
+        <div class="display-table-row">
+            <div class="display-table-cell wrapper-signin-page">
+                <a href="#/home">
+                    <img src="img/devzone-logo.png" height="auto" class="devzone-logo">
+                </a>
+            </div>
+        </div>
+        <!-- end display-table-row -->
+
+        <!-- display-table-row -->
+        <div class="display-table-row">
+            <div class="display-table-cell">
+
+                <form id="signIn-form1" name="signInForm" class="list general-form">
+                    <label class="item item-input m-b-20" id="signIn-input2">
+                        <input type="text" placeholder="Email" ng-model="user.email">
+                    </label>
+                    <label class="item item-input m-b-40" id="signIn-input1">
+                        <input type="password" placeholder="Password" ng-model="user.password">
+                    </label>
+
+                    <a id="signUp-button10" ng-click="signIn()" class=" button button-positive  button-block ">SIGN IN</a>
+                </form>
+
+                <div id="signUp-button-bar3" class=" button-bar" style="height: 50px;">
+                    <a ui-sref="forgotPassword" id="signUp-button11" class=" button button-light  button-block inline-link" style="text-align: right;">Forgot password?</a>
+                    <span class="inline-span">|</span>
+                    <a ui-sref="signUp" id="signUp-button11" class=" button button-light  button-block inline-link" style="text-align: left;">Create an Account</a>
+                </div>
+            </div>
+        </div>
+        <!-- end display-table-row -->
+
+    </ion-content>
+</ion-view>

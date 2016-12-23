@@ -1,0 +1,33 @@
+<ion-view title="Gateways" id="page7" class=" " ng-controller="gatewaysCtrl" ng-init="constructGateways(false)">
+    <ion-content class="has-header">
+
+      <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)"
+        dismiss-on-timeout="{{alert.timeout}}">{{alert.msg}}</div>
+
+      <div ng-hide="loadCompleted" style="text-align: center;">
+        <br><br>
+        LOADING GATEWAYS
+        <br><br>
+        <ion-spinner class="spinner-android"></ion-spinner>
+        <br><br>
+      </div>
+
+      <div class="list">
+        <a ng-repeat="device in deviceList" class="item item-avatar item-icon-left item-icon-right" 
+              ng-click="goDetail(device.deviceInfo)">
+          <img src="img/icon-gw.png">
+          <span class="gw-device-name">{{device.deviceName}}</span>
+          
+          <i class="icon ion-record" 
+              ng-class="{active: isGroupShown(node), balanced: device.deviceStatus, assertive: !device.deviceStatus}" 
+              style="float: right;"></i>
+        </a>
+      </div>
+
+      <div class="spacer" style="width: 300px; height: 45px;"></div>
+        <div id="gateways-button-bar5" class=" button-bar "></div>
+        <div class="spacer" style="width: 300px; height: 39px;"></div>
+        <a ui-sref="menu.gatewayScan" id="gateways-button19" class=" button button-positive  button-block ">ADD GATEWAY</a>
+        <button id="discoverThing-button26" class="button button-positive  button-block" ng-click="constructGateways(true)">REFRESH</button>
+    </ion-content>
+</ion-view>

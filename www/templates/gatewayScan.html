@@ -1,0 +1,25 @@
+<ion-view title="Gateway Scan" id="page8" class="" ng-controller="scanCtrl" ng-init="constructList('gateway', false)">
+    <ion-content padding="true" class="has-header">
+      <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)"
+        dismiss-on-timeout="{{alert.timeout}}">{{alert.msg}}</div>
+
+      <div ng-hide="scanCompleted" style="text-align: center;">
+        <br><br>
+        DETECTING GATEWAYS
+        <br><br>
+        <ion-spinner class="spinner-android"></ion-spinner>
+        <br><br>
+      </div>
+      <ion-list id="discoverGateway-list16" class=" ">
+        <ion-item class="item-icon-right dark" ng-repeat="item in itemList">
+
+          <h2 ng-click="setName(item)" ui-sref="menu.addGateway" class="ion-wifi">
+            {{item}}
+          </h2>
+
+        </ion-item>
+      </ion-list>
+      <button id="discoverThing-button26" class="button button-positive button-block button-refresh" ng-click="constructList('gateway', true)">REFRESH</button>
+
+    </ion-content>
+</ion-view>

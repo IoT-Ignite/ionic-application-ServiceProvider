@@ -1,0 +1,23 @@
+<ion-view title="Change Password" id="page14" ng-controller="profileCtrl">
+    <ion-content padding="true" class="has-header">
+
+        <div class="spacer spacer50"></div>
+
+        <form id="profile-form4" name="" class="list general-form">
+
+            <label class="item item-input m-b-20" id="signIn-input1">
+                <input type="password" placeholder="Old Password" ng-model="data.currentPassword" required>
+            </label>
+
+            <label class="item item-input m-b-20" id="signIn-input1">
+                <input type="password" placeholder="New Password" ng-model="data.newPassword" required>
+            </label>
+
+            <label class="item item-input m-b-40" id="signIn-input1">
+                <input type="password" placeholder="New Password Again" ng-model="data.newRePassword" required>
+            </label>
+        </form>
+
+        <a ng-click="changePassword()" id="profile-button9" class="button button-positive button-block button-group">CHANGE PASSWORD</a>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,36 @@
+<ion-view title="Add Node" id="page16" class=" " ng-init="constructAddNode()" hide-back-button="configureInProgress">
+  <ion-content padding="true" class="has-header">
+    <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)"
+      dismiss-on-timeout="{{alert.timeout}}">{{alert.msg}}</div>
+
+      <div ng-show="configureInProgress" style="text-align: center;">
+        <br>
+        CONFIGURING NODE
+        <br>
+        <ion-spinner class="spinner-android"></ion-spinner>
+        <br>
+        <div uib-alert ng-repeat="alert in logs" ng-class="'alert-' + (alert.type || 'warning')" close="closeLog($index)"
+          dismiss-on-timeout="{{alert.timeout}}">{{alert.msg}}</div>
+      </div>
+
+      <div ng-hide="configureInProgress" style="text-align: center;">
+        <form id="addNode-form2" class="list ">
+          <label class="item item-input " id="addThing-input3">
+            <span class="input-label">SSID</span>
+            <input type="text" placeholder="" ng-model="formData.GKEY_SSID">
+          </label>
+          <label class="item item-input " id="addThing-input9">
+            <span class="input-label">Password</span>
+            <input type="password" placeholder="" ng-model="formData.GKEY_SSID_PASS">
+          </label>
+          <label class="item item-input " id="addThing-input10">
+            <span class="input-label">Node Label</span>
+            <input type="text" placeholder="" ng-model="formData.GKEY_NODEID">
+          </label>
+        </form>
+        <button id="addNode-button26" class=" button button-positive button-block button-refresh"
+                ng-click="connectNode()">ADD NODE
+        </button>
+      </div>
+  </ion-content>
+</ion-view>
