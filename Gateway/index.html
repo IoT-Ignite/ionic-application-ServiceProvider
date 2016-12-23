@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Gateway - IoT-Ignite Service Provider App (SPA) Documentation</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Gateway";
+    var mkdocs_page_input_path = "Gateway.md";
+    var mkdocs_page_url = "/Gateway/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> IoT-Ignite Service Provider App (SPA) Documentation</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="..">Home</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Cloud/">Cloud</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Gateway</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#sequence-diagram">Sequence Diagram</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#discover">Discover</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#register">Register</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Node/">Node</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">IoT-Ignite Service Provider App (SPA) Documentation</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Gateway</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="sequence-diagram">Sequence Diagram</h1>
+<p><img alt="SPA to Gateway and IoT Ignite Cloud Sequence Diagram" src="../images/SPA_Gateway_IoTIgniteCloud.png" /></p>
+<h1 id="discover">Discover</h1>
+<p>To discover Ignite getaways nearby, list the Wifi SSIDs and search <code>IGNITE_GATEWAY</code> prefix. Note that unregistered gateways wait for connection in Wifi hotspot mode.</p>
+<pre><code>var filter = &quot;IGNITE_GATEWAY&quot;;
+NetworkService.listWifi(function(wifi){
+    var igniteWifiArray = NetworkService.filterWifi(wifi, filter);
+}
+</code></pre>
+
+<h1 id="register">Register</h1>
+<p>When you find a gateway, it is time to register it to your IoT-Ignite Platform. Connect to that gateway with the help of the <code>WifiWizard</code> plugin handled in <code>Network Service</code>. After connecting to that gateway, send configuration to it via websocket.</p>
+<p><code>$q</code> is a service that helps you run functions asynchronously, and use their return values (or exceptions) when they have completed their processing. For more information about that please visit <a href="https://docs.angularjs.org/api/ng/service/$q">https://docs.angularjs.org/api/ng/service/$q</a></p>
+<p><code>gatewayConfig</code> contains information about Internet connection and service provider so that gateway could be used as a IoT-Ignite Gateway.</p>
+<pre><code>var gatewayConfig = {&quot;type&quot; : &quot;CONFIGURATION&quot;, &quot;params&quot;:{&quot;ssid&quot;: ssid,&quot;ssidPassword&quot;:pass,&quot;appKey&quot;:success.data.appKey, &quot;activationCode&quot; : success.data.activationCode, &quot;profileName&quot; : profile, &quot;previousIp&quot; : clientIp, &quot;logPort&quot; : 12734}}
+</code></pre>
+
+<pre><code>function sendGatewayConfig(timeout, gatewayIp, gatewayConfig, logFunc) {
+var deferred = $q.defer();
+
+  try {
+    var ws = new WebSocket(&quot;ws://&quot; + gatewayIp + &quot;:12732&quot;);
+    var configurationReplyMsg = false;
+    var deviceInfoMsg = false;
+    var deviceInfo = &quot;&quot;;
+    ws.onopen = function() {
+      console.log(&quot;Sending configuration &quot; + JSON.stringify(gatewayConfig));
+      ws.send(JSON.stringify(gatewayConfig));
+      logFunc(&quot;success&quot;, &quot;Successfully connected to Gateway Socket &quot;, 2000);
+    };
+    ws.onmessage = function(evt){
+      console.log(&quot;Message received: &quot; + evt.data);
+      var message = JSON.parse(evt.data);
+      if(message.type == &quot;DEVICE_INFO&quot;){
+        deviceInfo = message;
+        deviceInfoMsg = true;
+      } else if(message.type == &quot;CONFIGURATION_REPLY&quot; &amp;&amp; message.params.result == &quot;SUCCESS&quot;){
+        configurationReplyMsg = true;
+      } else {
+        deferred.reject(&quot;Reject error: &quot; + JSON.stringify(message));
+        ws.close();
+      }
+      if(deviceInfoMsg &amp;&amp; configurationReplyMsg){
+        deferred.resolve(deviceInfo);
+        ws.close();
+      }
+    }
+    ws.onerror = function(exception){
+      console.log(&quot;Could not connect to : &quot; + gatewayIp);
+      deferred.reject(&quot;Could not connect to : &quot; + gatewayIp);
+      ws.close();
+    }
+  } catch(exception) {
+    console.log(&quot;Error: &quot; + exception);
+    deferred.reject(&quot;Reject error: &quot; + exception);
+    ws.close();
+  }
+setTimeout(function () {
+  deferred.reject(&quot;Send gateway config timeout&quot;);
+}, timeout);
+
+return deferred.promise;
+}
+</code></pre>
+
+<p>After configuration is sent successfully, it is time to check that this gateway is registered to Service Provider's IoT-Ignite Platform. To get registered device list, device summary must be requested from IoT Ignite cloud.</p>
+<pre><code>$http({
+  method: 'GET',
+  headers: {
+    'Authorization': 'Bearer ' + accessToken
+  },
+  url: API_URL + '/device/summary?page=0&amp;size=100'
+})
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Node/" class="btn btn-neutral float-right" title="Node">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../Cloud/" class="btn btn-neutral" title="Cloud"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../Cloud/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../Node/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../js/theme.js"></script>
+
+</body>
+</html>

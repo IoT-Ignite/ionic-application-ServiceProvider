@@ -1,0 +1,119 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "Overview\n\n\nWelcome to IoT-Ignite Service Provider Application (SPA) documentation. This Ionic HTML 5 sample mobile application shows how a Service Provider interacts with Gateways, Nodes and IoT Ignite Cloud APIs found in IoT-Ignite platform. For full information about IoT-Ignite please visit \niot-ignite.com\n.\n\n\nService Provider\n\n\nIoT-Ignite is a public platform for makers or IoT service providers. We provide IoT-Ignite service libraries, application samples that discovers and registers your nodes and gateways easily, ready for developers and REST APIs for cloud communication of your services.\n\n\nSample Application\n\n\nIonic Framework\n\n\nIonic lets developers build beautiful and interactive mobile apps using HTML5 and AngularJS. For more information about Ionic Framework please visit \nhttps://ionicframework.com\n.\n\n\nPlugins\n\n\n\n\nWifiWizard Version 0.2.10 : This plugin allows applications to manage Wifi connections. (\nhttps://github.com/parsonsmatt/wifiwizard#readme\n)\n\n\nChrome Sockets TCP : This plugin provides TCP client sockets for Android and iOS. \nhttps://github.com/MobileChromeApps/cordova-plugin-chrome-apps-sockets-tcp", 
+            "title": "Home"
+        }, 
+        {
+            "location": "/#overview", 
+            "text": "Welcome to IoT-Ignite Service Provider Application (SPA) documentation. This Ionic HTML 5 sample mobile application shows how a Service Provider interacts with Gateways, Nodes and IoT Ignite Cloud APIs found in IoT-Ignite platform. For full information about IoT-Ignite please visit  iot-ignite.com .", 
+            "title": "Overview"
+        }, 
+        {
+            "location": "/#service-provider", 
+            "text": "IoT-Ignite is a public platform for makers or IoT service providers. We provide IoT-Ignite service libraries, application samples that discovers and registers your nodes and gateways easily, ready for developers and REST APIs for cloud communication of your services.", 
+            "title": "Service Provider"
+        }, 
+        {
+            "location": "/#sample-application", 
+            "text": "", 
+            "title": "Sample Application"
+        }, 
+        {
+            "location": "/#ionic-framework", 
+            "text": "Ionic lets developers build beautiful and interactive mobile apps using HTML5 and AngularJS. For more information about Ionic Framework please visit  https://ionicframework.com .", 
+            "title": "Ionic Framework"
+        }, 
+        {
+            "location": "/#plugins", 
+            "text": "WifiWizard Version 0.2.10 : This plugin allows applications to manage Wifi connections. ( https://github.com/parsonsmatt/wifiwizard#readme )  Chrome Sockets TCP : This plugin provides TCP client sockets for Android and iOS.  https://github.com/MobileChromeApps/cordova-plugin-chrome-apps-sockets-tcp", 
+            "title": "Plugins"
+        }, 
+        {
+            "location": "/Cloud/", 
+            "text": "Sequence Diagram\n\n\n\n\nREST APIs\n\n\nThe REST API url for the requests;\n\n\nconst API_URL = 'https://api.ardich.com/api/v3';\n\n\n\n\nCreate User\n\n\nCreating user to Service Provider Brand is as follows;\n\n\n$http({\n  method: 'POST',\n  data:{\n     \nfirstName\n: firstName,\n     \nlastName\n: lastName,\n     \nmail\n: mail,\n     \npassword\n: password,\n     \nprofileName\n: profileName,\n     \nbrand\n: brand\n    },\n  url: API_URL + '/public/create-restricted-user',\n  headers: {\n      'Content-Type': 'application/json'\n  },\n})\n\n\n\n\nLogin\n\n\n$http({\n  method: 'POST',\n  data: \ngrant_type=password\nusername=\n + email + \npassword=\n + password;,\n  url: API_URL + '/login/oauth',\n  headers : {\n     'Content-Type': 'application/x-www-form-urlencoded',\n     'Authorization': 'Basic ' + btoa(clientId + \n:\n)\n  }\n})\n\n\n\n\nclientId\n is Service Provider Id that was created in IoT-Ignite Devzone.\n\n\nThe return access token, refresh token and user email could be stored in the SQLite table for future use as in sample code.\n\n\nDevice\n\n\nGet Information\n\n\nMostly for the interaction of the user interface there are success and error callbacks used in functions. \n\n\n\n\nGet Service Default Information\n\n\n\n\n$http({\n  method: 'GET',\n  headers: {\n    'Authorization': 'Bearer ' + accessToken\n  },\n  url: API_URL + '/ignite/default-qr-attributes'\n})\n\n\n\n\nUpdate Information\n\n\nYou can change device label in IoT Ignite Cloud as follows:\n\n\n$http({\n  method: 'PUT',\n  data:{\n      \nlabel\n: label\n     },\n  headers: {\n    'Authorization': 'Bearer ' + accessToken\n  },\n  url: API_URL + '/device/' + deviceCode + '/label'\n})\n\n\n\n\nYou can also inform device itself about label change:\n\n\n$http({\n  method: 'POST',\n  data:{},\n  headers: {\n    'Authorization': 'Bearer ' + accessToken\n  },\n  url: API_URL + '/device/' + deviceCode + '/control/pushTenantDeviceInfo'\n})\n\n\n\n\nFor full information about IoT Ignite Cloud APIs, please visit \ndevzone.iot-ignite.com/article-categories/api/", 
+            "title": "Cloud"
+        }, 
+        {
+            "location": "/Cloud/#sequence-diagram", 
+            "text": "", 
+            "title": "Sequence Diagram"
+        }, 
+        {
+            "location": "/Cloud/#rest-apis", 
+            "text": "The REST API url for the requests;  const API_URL = 'https://api.ardich.com/api/v3';", 
+            "title": "REST APIs"
+        }, 
+        {
+            "location": "/Cloud/#create-user", 
+            "text": "Creating user to Service Provider Brand is as follows;  $http({\n  method: 'POST',\n  data:{\n      firstName : firstName,\n      lastName : lastName,\n      mail : mail,\n      password : password,\n      profileName : profileName,\n      brand : brand\n    },\n  url: API_URL + '/public/create-restricted-user',\n  headers: {\n      'Content-Type': 'application/json'\n  },\n})", 
+            "title": "Create User"
+        }, 
+        {
+            "location": "/Cloud/#login", 
+            "text": "$http({\n  method: 'POST',\n  data:  grant_type=password username=  + email +  password=  + password;,\n  url: API_URL + '/login/oauth',\n  headers : {\n     'Content-Type': 'application/x-www-form-urlencoded',\n     'Authorization': 'Basic ' + btoa(clientId +  : )\n  }\n})  clientId  is Service Provider Id that was created in IoT-Ignite Devzone.  The return access token, refresh token and user email could be stored in the SQLite table for future use as in sample code.", 
+            "title": "Login"
+        }, 
+        {
+            "location": "/Cloud/#device", 
+            "text": "", 
+            "title": "Device"
+        }, 
+        {
+            "location": "/Cloud/#get-information", 
+            "text": "Mostly for the interaction of the user interface there are success and error callbacks used in functions.    Get Service Default Information   $http({\n  method: 'GET',\n  headers: {\n    'Authorization': 'Bearer ' + accessToken\n  },\n  url: API_URL + '/ignite/default-qr-attributes'\n})", 
+            "title": "Get Information"
+        }, 
+        {
+            "location": "/Cloud/#update-information", 
+            "text": "You can change device label in IoT Ignite Cloud as follows:  $http({\n  method: 'PUT',\n  data:{\n       label : label\n     },\n  headers: {\n    'Authorization': 'Bearer ' + accessToken\n  },\n  url: API_URL + '/device/' + deviceCode + '/label'\n})  You can also inform device itself about label change:  $http({\n  method: 'POST',\n  data:{},\n  headers: {\n    'Authorization': 'Bearer ' + accessToken\n  },\n  url: API_URL + '/device/' + deviceCode + '/control/pushTenantDeviceInfo'\n})  For full information about IoT Ignite Cloud APIs, please visit  devzone.iot-ignite.com/article-categories/api/", 
+            "title": "Update Information"
+        }, 
+        {
+            "location": "/Gateway/", 
+            "text": "Sequence Diagram\n\n\n\n\nDiscover\n\n\nTo discover Ignite getaways nearby, list the Wifi SSIDs and search \nIGNITE_GATEWAY\n prefix. Note that unregistered gateways wait for connection in Wifi hotspot mode.\n\n\nvar filter = \nIGNITE_GATEWAY\n;\nNetworkService.listWifi(function(wifi){\n    var igniteWifiArray = NetworkService.filterWifi(wifi, filter);\n}\n\n\n\n\nRegister\n\n\nWhen you find a gateway, it is time to register it to your IoT-Ignite Platform. Connect to that gateway with the help of the \nWifiWizard\n plugin handled in \nNetwork Service\n. After connecting to that gateway, send configuration to it via websocket.\n\n\n$q\n is a service that helps you run functions asynchronously, and use their return values (or exceptions) when they have completed their processing. For more information about that please visit \nhttps://docs.angularjs.org/api/ng/service/$q\n\n\ngatewayConfig\n contains information about Internet connection and service provider so that gateway could be used as a IoT-Ignite Gateway.\n\n\nvar gatewayConfig = {\ntype\n : \nCONFIGURATION\n, \nparams\n:{\nssid\n: ssid,\nssidPassword\n:pass,\nappKey\n:success.data.appKey, \nactivationCode\n : success.data.activationCode, \nprofileName\n : profile, \npreviousIp\n : clientIp, \nlogPort\n : 12734}}\n\n\n\n\nfunction sendGatewayConfig(timeout, gatewayIp, gatewayConfig, logFunc) {\nvar deferred = $q.defer();\n\n  try {\n    var ws = new WebSocket(\nws://\n + gatewayIp + \n:12732\n);\n    var configurationReplyMsg = false;\n    var deviceInfoMsg = false;\n    var deviceInfo = \n;\n    ws.onopen = function() {\n      console.log(\nSending configuration \n + JSON.stringify(gatewayConfig));\n      ws.send(JSON.stringify(gatewayConfig));\n      logFunc(\nsuccess\n, \nSuccessfully connected to Gateway Socket \n, 2000);\n    };\n    ws.onmessage = function(evt){\n      console.log(\nMessage received: \n + evt.data);\n      var message = JSON.parse(evt.data);\n      if(message.type == \nDEVICE_INFO\n){\n        deviceInfo = message;\n        deviceInfoMsg = true;\n      } else if(message.type == \nCONFIGURATION_REPLY\n \n message.params.result == \nSUCCESS\n){\n        configurationReplyMsg = true;\n      } else {\n        deferred.reject(\nReject error: \n + JSON.stringify(message));\n        ws.close();\n      }\n      if(deviceInfoMsg \n configurationReplyMsg){\n        deferred.resolve(deviceInfo);\n        ws.close();\n      }\n    }\n    ws.onerror = function(exception){\n      console.log(\nCould not connect to : \n + gatewayIp);\n      deferred.reject(\nCould not connect to : \n + gatewayIp);\n      ws.close();\n    }\n  } catch(exception) {\n    console.log(\nError: \n + exception);\n    deferred.reject(\nReject error: \n + exception);\n    ws.close();\n  }\nsetTimeout(function () {\n  deferred.reject(\nSend gateway config timeout\n);\n}, timeout);\n\nreturn deferred.promise;\n}\n\n\n\n\nAfter configuration is sent successfully, it is time to check that this gateway is registered to Service Provider's IoT-Ignite Platform. To get registered device list, device summary must be requested from IoT Ignite cloud.\n\n\n$http({\n  method: 'GET',\n  headers: {\n    'Authorization': 'Bearer ' + accessToken\n  },\n  url: API_URL + '/device/summary?page=0\nsize=100'\n})", 
+            "title": "Gateway"
+        }, 
+        {
+            "location": "/Gateway/#sequence-diagram", 
+            "text": "", 
+            "title": "Sequence Diagram"
+        }, 
+        {
+            "location": "/Gateway/#discover", 
+            "text": "To discover Ignite getaways nearby, list the Wifi SSIDs and search  IGNITE_GATEWAY  prefix. Note that unregistered gateways wait for connection in Wifi hotspot mode.  var filter =  IGNITE_GATEWAY ;\nNetworkService.listWifi(function(wifi){\n    var igniteWifiArray = NetworkService.filterWifi(wifi, filter);\n}", 
+            "title": "Discover"
+        }, 
+        {
+            "location": "/Gateway/#register", 
+            "text": "When you find a gateway, it is time to register it to your IoT-Ignite Platform. Connect to that gateway with the help of the  WifiWizard  plugin handled in  Network Service . After connecting to that gateway, send configuration to it via websocket.  $q  is a service that helps you run functions asynchronously, and use their return values (or exceptions) when they have completed their processing. For more information about that please visit  https://docs.angularjs.org/api/ng/service/$q  gatewayConfig  contains information about Internet connection and service provider so that gateway could be used as a IoT-Ignite Gateway.  var gatewayConfig = { type  :  CONFIGURATION ,  params :{ ssid : ssid, ssidPassword :pass, appKey :success.data.appKey,  activationCode  : success.data.activationCode,  profileName  : profile,  previousIp  : clientIp,  logPort  : 12734}}  function sendGatewayConfig(timeout, gatewayIp, gatewayConfig, logFunc) {\nvar deferred = $q.defer();\n\n  try {\n    var ws = new WebSocket( ws://  + gatewayIp +  :12732 );\n    var configurationReplyMsg = false;\n    var deviceInfoMsg = false;\n    var deviceInfo =  ;\n    ws.onopen = function() {\n      console.log( Sending configuration   + JSON.stringify(gatewayConfig));\n      ws.send(JSON.stringify(gatewayConfig));\n      logFunc( success ,  Successfully connected to Gateway Socket  , 2000);\n    };\n    ws.onmessage = function(evt){\n      console.log( Message received:   + evt.data);\n      var message = JSON.parse(evt.data);\n      if(message.type ==  DEVICE_INFO ){\n        deviceInfo = message;\n        deviceInfoMsg = true;\n      } else if(message.type ==  CONFIGURATION_REPLY    message.params.result ==  SUCCESS ){\n        configurationReplyMsg = true;\n      } else {\n        deferred.reject( Reject error:   + JSON.stringify(message));\n        ws.close();\n      }\n      if(deviceInfoMsg   configurationReplyMsg){\n        deferred.resolve(deviceInfo);\n        ws.close();\n      }\n    }\n    ws.onerror = function(exception){\n      console.log( Could not connect to :   + gatewayIp);\n      deferred.reject( Could not connect to :   + gatewayIp);\n      ws.close();\n    }\n  } catch(exception) {\n    console.log( Error:   + exception);\n    deferred.reject( Reject error:   + exception);\n    ws.close();\n  }\nsetTimeout(function () {\n  deferred.reject( Send gateway config timeout );\n}, timeout);\n\nreturn deferred.promise;\n}  After configuration is sent successfully, it is time to check that this gateway is registered to Service Provider's IoT-Ignite Platform. To get registered device list, device summary must be requested from IoT Ignite cloud.  $http({\n  method: 'GET',\n  headers: {\n    'Authorization': 'Bearer ' + accessToken\n  },\n  url: API_URL + '/device/summary?page=0 size=100'\n})", 
+            "title": "Register"
+        }, 
+        {
+            "location": "/Node/", 
+            "text": "Sequence Diagram\n\n\n\n\nDiscover\n\n\nTo discover Ignite nodes nearby, list the Wifi ssids and filter the ones with the \nIotIgnite\n prefix. Note that unregistered nodes wait for connections in Wifi hotspot mode as gateways do.\n\n\nvar filter = \nIotIgnite\n;\nNetworkService.listWifi(function(wifi){\n    var igniteWifiArray = NetworkService.filterWifi(wifi, filter);\n}\n\n\n\n\nRegister\n\n\nAfter selecting registered gateway from your service nearby, it is time to register node(s).\n\n\nGet Device Details\n\n\n$http({\n  method: 'GET',\n  headers: {\n    'Authorization': 'Bearer ' + accessToken\n  },\n  url: API_URL + '/device/' + deviceCode\n})\n\n\n\n\nConnect to that node with the help of the \nWifiWizard\n plugin handled in \nNetwork Service\n\n\nAfter connecting to node, send configuration that contains its identifier, gateway id and internet connection information(ssid, password) to it via HTTP post request.\n\n\nvar configurations = \nnode-configurations=\n + '{\nnode-configurations\n:{\nnodeId\n:\n' + nodeId + '\n,\ngatewayId\n:\n' + gatewayId + '\n,\nssid\n:\n' + ssid + '\n,\npassword\n:\n' + pass + '\n}}';\n\n$http({\n method: 'POST',\n data: configurations,\n headers: {\n   'Content-Type' : 'application/x-www-form-urlencoded;'\n },\n url: \nhttp://192.168.4.1/node-configurations\n\n});\n\n\n\n\nAfter configuration is sent successfully, it is time to check that this node is registered to Service Provider's IoT-Ignite Platform. This could be done via IoT Ignite cloud REST API.\n\n\n$http({\n method: 'GET',\n headers: {\n   'Authorization': 'Bearer ' + accessToken\n },\n url: API_URL + '/device/' + deviceId + \n/device-node-inventory\n\n});\n\n\n\n\nUnregister\n\n\nRegistered node and things can be unregistered as follows;\n\n\n$http({\n method: 'POST',\n data:{\n   \nparams\n: [\n      {\n        \nnodeId\n: nodeId,\n        \nsensorId\n: thingId\n      }\n    ]\n },\n headers: {\n   'Authorization': 'Bearer ' + accessToken\n },\n url: API_URL + '/device/' + deviceId + '/control/unregister-node-thing'\n});", 
+            "title": "Node"
+        }, 
+        {
+            "location": "/Node/#sequence-diagram", 
+            "text": "", 
+            "title": "Sequence Diagram"
+        }, 
+        {
+            "location": "/Node/#discover", 
+            "text": "To discover Ignite nodes nearby, list the Wifi ssids and filter the ones with the  IotIgnite  prefix. Note that unregistered nodes wait for connections in Wifi hotspot mode as gateways do.  var filter =  IotIgnite ;\nNetworkService.listWifi(function(wifi){\n    var igniteWifiArray = NetworkService.filterWifi(wifi, filter);\n}", 
+            "title": "Discover"
+        }, 
+        {
+            "location": "/Node/#register", 
+            "text": "After selecting registered gateway from your service nearby, it is time to register node(s).  Get Device Details  $http({\n  method: 'GET',\n  headers: {\n    'Authorization': 'Bearer ' + accessToken\n  },\n  url: API_URL + '/device/' + deviceCode\n})  Connect to that node with the help of the  WifiWizard  plugin handled in  Network Service  After connecting to node, send configuration that contains its identifier, gateway id and internet connection information(ssid, password) to it via HTTP post request.  var configurations =  node-configurations=  + '{ node-configurations :{ nodeId : ' + nodeId + ' , gatewayId : ' + gatewayId + ' , ssid : ' + ssid + ' , password : ' + pass + ' }}';\n\n$http({\n method: 'POST',\n data: configurations,\n headers: {\n   'Content-Type' : 'application/x-www-form-urlencoded;'\n },\n url:  http://192.168.4.1/node-configurations \n});  After configuration is sent successfully, it is time to check that this node is registered to Service Provider's IoT-Ignite Platform. This could be done via IoT Ignite cloud REST API.  $http({\n method: 'GET',\n headers: {\n   'Authorization': 'Bearer ' + accessToken\n },\n url: API_URL + '/device/' + deviceId +  /device-node-inventory \n});", 
+            "title": "Register"
+        }, 
+        {
+            "location": "/Node/#unregister", 
+            "text": "Registered node and things can be unregistered as follows;  $http({\n method: 'POST',\n data:{\n    params : [\n      {\n         nodeId : nodeId,\n         sensorId : thingId\n      }\n    ]\n },\n headers: {\n   'Authorization': 'Bearer ' + accessToken\n },\n url: API_URL + '/device/' + deviceId + '/control/unregister-node-thing'\n});", 
+            "title": "Unregister"
+        }
+    ]
+}
