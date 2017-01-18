@@ -122,6 +122,23 @@ angular.module('app.services')
     }, failFunc);
   }
 
+  function configureNSDGateway(nsd, appKey, activationCode, profile, logFunc, successFunc, failFunc) {
+      //http://192.168.2.12:8080/?appKey=aa&activationCode=aa&resultType=json
+      $http({
+        method: 'GET',
+        params: {"appKey": appKey, "activationCode": activationCode, "modeName": profile, "resultType": "json"},
+        headers: {
+          'Content-Type' : 'application/x-www-form-urlencoded;'
+        },
+        url: "http://" + nsd.ipv4Addresses[0] + ":" + nsd.port
+      }).then(function(response) {
+        logFunc("success", "Configuration sent succesfully", "none");
+         waitDeviceRegistration(1, nsd.txtRecord.deviceId, logFunc, successFunc, failFunc);
+      }, function(message){
+        console.log("Error message : " + message);
+      });
+  }
+
   function getGatewayPass(gatewaySSID) {
     var reverse = "";
     gatewaySSID = gatewaySSID.trim();
@@ -154,9 +171,28 @@ angular.module('app.services')
         });
       }
 
+      function registerNSDGateway(profile, nsd, logFunc, successFunc, failFunc) {
+        GatewayApiService.getQrCode(function (success) {
+              if(success.status == 200){
+                console.log(success.data);
+                configureNSDGateway(nsd, success.data.appKey, success.data.activationCode, profile, logFunc, successFunc, failFunc)
+              }else{
+                failFunc("Unknown response code " + success.status);
+              }
+            }, function(error) {
+              if(error.status == 404){
+      					failFunc("End user couldn't find");
+      				}else{
+      					failFunc
+      				}
+            });
+          }
   return {
     registerGateway: function (ssid, pass, profile, gateway, logFunc, successFunc, failFunc) {
       registerGateway(ssid, pass, profile, gateway, logFunc, successFunc, failFunc);
+    },
+    registerNSDGateway: function (profile, nsd, logFunc, successFunc, failFunc) {
+      registerNSDGateway(profile, nsd, logFunc, successFunc, failFunc);
     }
   };
 

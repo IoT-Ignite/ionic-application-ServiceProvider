@@ -86,6 +86,16 @@ angular.module('app.routes', [])
     }
   })
 
+  .state('menu.addNSDGateway', {
+    url: '/addNSDgateway',
+    views: {
+      'side-menu21': {
+        templateUrl: 'templates/addNSDGateway.html',
+        controller: 'addGatewayCtrl'
+      }
+    }
+  })
+
   .state('menu.addNode', {
     cache: false,
     url: '/addgateway',

@@ -121,4 +121,41 @@ function ($scope, $stateParams, $rootScope, $cookieStore, $ionicPopup, GatewaySe
     });
 
   };
+
+  $scope.connectToNSDGateway = function(){
+    console.log("(connectToNSDGateway) init : " + $rootScope.NSD.txtRecord.deviceId);
+
+    $scope.configureInProgress = true;
+    $scope.alerts = [];
+    $scope.logs = [];
+    GatewayService.registerNSDGateway($scope.formData.PROFILE_NAME, $rootScope.NSD, function(type, message, timeout){
+      console.log(type + ": " + message);
+      $scope.logs.push({type: type, msg: message , timeout : timeout});
+    }, function(gatewayId){
+      var message = "Configuration progress has been completed for " + gatewayId;
+      console.log(message);
+      $scope.alerts.push({type: 'success', msg: message });
+      $ionicPopup.show({
+        template: message,
+        title: "Registration Result",
+        buttons: [
+          {
+            text: "Ok"
+          }
+        ]
+      });
+      console.log('redirect page');
+      $cookieStore.put('deviceId', gatewayId);
+      $ionicHistory.nextViewOptions({
+        disableBack: true
+      });
+      $scope.configureInProgress = false;
+      $window.location.href = '#/menu/gatewaydetail';
+    }, function(message){
+      console.log("error: " + message);
+      $scope.alerts.push({type: 'danger', msg: message });
+      $scope.configureInProgress = false;
+    });
+
+  };
 }])

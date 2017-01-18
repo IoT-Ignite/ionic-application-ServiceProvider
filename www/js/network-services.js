@@ -2,8 +2,7 @@ angular.module('app.services')
 
 /* Network Service */
 .factory('NetworkService', ['$q', function ($q) {
-
-
+  var zeroconf = cordova.plugins.zeroconf;
   function addNetwork(wifiConfig, success, fail){
     WifiWizard.addNetwork(wifiConfig, success, fail)
   }
@@ -89,6 +88,80 @@ angular.module('app.services')
     return WifiWizard.formatWPAConfig(ssid, pass);
   }
 
+  function watch(type, domain, delay) {
+    var deferred = $q.defer();
+
+    var igniteNSDArray = [];
+    console.log('watch');
+    zeroconf.watch(type, domain, function(result) {
+      var action = result.action;
+      var service = result.service;
+      /* service : {
+          'domain' : 'local.',
+          'type' : '_http._tcp.',
+          'name': 'Becvert\'s iPad',
+          'port' : 80,
+          'hostname' : 'ipad-of-becvert.local',
+          'ipv4Addresses' : [ '192.168.1.125' ],
+          'ipv6Addresses' : [ '2001:0:5ef5:79fb:10cb:1dbf:3f57:feb0' ],
+          'txtRecord' : {
+              'foo' : 'bar'
+          }
+      } */
+      if (action == 'added') {
+          igniteNSDArray.push(service);
+          console.log('service added', service);
+      }
+    });
+
+     setTimeout(function () {
+       //try
+         unwatch(type, domain);
+         close();
+         deferred.resolve(igniteNSDArray);
+     }, delay);
+
+    return deferred.promise;
+  }
+
+  function watch2(type, domain) {
+
+    var igniteNSDArray = [];
+    console.log('watch');
+    zeroconf.watch(type, domain, function(result) {
+      var action = result.action;
+      var service = result.service;
+      /* service : {
+          'domain' : 'local.',
+          'type' : '_http._tcp.',
+          'name': 'Becvert\'s iPad',
+          'port' : 80,
+          'hostname' : 'ipad-of-becvert.local',
+          'ipv4Addresses' : [ '192.168.1.125' ],
+          'ipv6Addresses' : [ '2001:0:5ef5:79fb:10cb:1dbf:3f57:feb0' ],
+          'txtRecord' : {
+              'foo' : 'bar'
+          }
+      } */
+      if (action == 'added') {
+          console.log('service added', service);
+      }
+    });
+
+  }
+
+  function unwatch(type, domain) {
+    zeroconf.unwatch(type, domain);
+  }
+
+  function close() {
+    zeroconf.close();
+  }
+
+  function getHostName(successFunc) {
+    zeroconf.getHostname(successFunc);
+  }
+
   return {
     addNetwork: function(wifiConfig, success, fail) {
       return addNetwork(wifiConfig, success, fail);
@@ -113,6 +186,21 @@ angular.module('app.services')
     },
     formatWPAConfig: function (ssid, pass) {
       return formatWPAConfig(ssid, pass);
+    },
+    watch: function(type, domain, delay) {
+      return watch(type, domain, delay);
+    },
+    watch2: function(type, domain) {
+      watch2(type, domain);
+    },
+    unwatch: function(type, domain) {
+      unwatch(type, domain);
+    },
+    close: function() {
+      close();
+    },
+    getHostName: function(successFunc) {
+      getHostName(successFunc);
     }
   };
 

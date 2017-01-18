@@ -595,20 +595,17 @@ function ($rootScope, $scope, $stateParams, $http, $cookieStore, igniteDB, Gatew
 			$scope.alerts.splice(index, 1);
 		};
 
-    $scope.constructList = function(type, refresh){
+		$scope.constructNodeList = function(refresh){
 			$scope.itemList = [];
 			$scope.scanCompleted = false;
 			$scope.alerts = [];
-			var filter = "IGNITE_GATEWAY";
-			if(type == 'node') {
-				filter = "IotIgnite";
-			}
+			var filter = "IotIgnite";
 			try{
 				NetworkService.listWifi(function(wifi){
 						var igniteWifiArray = NetworkService.filterWifi(wifi, filter);
 						//$scope.alerts.push({type: 'warning', msg: "Could not find any Ignite Gateways in WiFi222"});
 						if (igniteWifiArray.length == 0) {
-							$scope.alerts.push({type: 'warning', msg: "Could not find any Ignite " + type + " in WiFi" , timeout : "2000"});
+							$scope.alerts.push({type: 'warning', msg: "Could not find any Ignite Node in WiFi" , timeout : "2000"});
 						}
 						$scope.itemList = igniteWifiArray;
 						$scope.scanCompleted = true;
@@ -629,11 +626,69 @@ function ($rootScope, $scope, $stateParams, $http, $cookieStore, igniteDB, Gatew
 
 		};
 
-    $scope.setName = function(name){
-      console.log("(setName) init");
-      $rootScope.Name = name;
-      console.log("($rootScope.Name): " + $rootScope.Name);
-    };
+    $scope.constructGatewayList = function(refresh){
+			$scope.itemListWifi = [];
+			$scope.itemListNSD = [];
+			$scope.scanCompleted = false;
+			$scope.alerts = [];
+			var filter = "IGNITE_GATEWAY";
+			var nsdType = "_iotignite_agent._tcp.";
+
+			try{
+				NetworkService.listWifi(function(wifi){
+						var igniteWifiArray = NetworkService.filterWifi(wifi, filter);
+						var igniteNSDArray = [];
+						/*
+						NetworkService.getHostName(function(hostName) {
+							console.log("Hostname:" + hostName);
+						});
+						*/
+						//NetworkService.watch(nsdType, 'local.');
+						NetworkService.watch(nsdType, 'local.', 25000).then(function(NSDArray) {
+							for(var i = 0; i < NSDArray.length; i++) {
+								igniteNSDArray.push(NSDArray[i]);
+							}
+
+							//$scope.alerts.push({type: 'warning', msg: "Could not find any Ignite Gateways in WiFi222"});
+							if (igniteWifiArray.length == 0 && igniteNSDArray.length ==0) {
+								$scope.alerts.push({type: 'warning', msg: "Could not find any Ignite Gateway", timeout : "2000"});
+							}
+							$scope.itemWifiList = igniteWifiArray;
+							$scope.itemNSDList = igniteNSDArray;
+							$scope.scanCompleted = true;
+
+
+						}, null);
+
+						if(refresh){
+							$scope.$apply();
+						}
+
+					}, function(error){
+						$scope.alerts.push({type: 'danger', msg: error });
+						$scope.scanCompleted = true;
+						if(refresh){
+							$scope.$apply();
+						}
+					});
+			}catch(err){
+				$scope.alerts.push({type: 'danger', msg: 'Unknown error. Error detail:' + err });
+				$scope.scanCompleted = true;
+			}
+
+		};
+
+		$scope.setName = function(name){
+		  console.log("(setName) init");
+		  $rootScope.Name = name;
+		  console.log("($rootScope.Name): " + $rootScope.Name);
+		};
+
+		$scope.setNSD = function(nsd){
+			console.log("(setNSD) init");
+			$rootScope.NSD = nsd;
+			console.log("($rootScope.NSD): " + $rootScope.NSD);
+		};
   }])
 
 .controller('registrationStatusCtrl', ['$rootScope', '$scope', '$stateParams', // TIP: Access Route Parameters for your page via $stateParams.parameterName

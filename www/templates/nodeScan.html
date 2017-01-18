@@ -1,4 +1,4 @@
-<ion-view title="Node Scan" id="page15" class="" ng-controller="scanCtrl" ng-init="constructList('node', false)">
+<ion-view title="Node Scan" id="page15" class="" ng-controller="scanCtrl" ng-init="constructNodeList('node', false)">
     <ion-content padding="true" class="has-header">
       <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)"
         dismiss-on-timeout="{{alert.timeout}}">{{alert.msg}}</div>

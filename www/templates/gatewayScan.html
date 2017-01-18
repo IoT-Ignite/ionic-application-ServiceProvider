@@ -1,4 +1,4 @@
-<ion-view title="Gateway Scan" id="page8" class="" ng-controller="scanCtrl" ng-init="constructList('gateway', false)">
+<ion-view title="Gateway Scan" id="page8" class="" ng-controller="scanCtrl" ng-init="constructGatewayList('gateway', false)">
     <ion-content padding="true" class="has-header">
       <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)"
         dismiss-on-timeout="{{alert.timeout}}">{{alert.msg}}</div>
@@ -11,10 +11,17 @@
         <br><br>
       </div>
       <ion-list id="discoverGateway-list16" class=" ">
-        <ion-item class="item-icon-right dark" ng-repeat="item in itemList">
+        <ion-item class="item-icon-right dark" ng-repeat="item in itemWifiList">
 
           <h2 ng-click="setName(item)" ui-sref="menu.addGateway" class="ion-wifi">
             {{item}}
+          </h2>
+
+        </ion-item>
+        <ion-item class="item-icon-right dark" ng-repeat="item in itemNSDList | unique: 'txtRecord.deviceId'">
+
+          <h2 ng-click="setNSD(item)" ui-sref="menu.addNSDGateway" class="ion-radio-waves">
+            {{item.txtRecord.deviceId}}
           </h2>
 
         </ion-item>

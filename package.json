@@ -24,7 +24,8 @@
     "cordova-sqlite-storage",
     "wifiwizard",
     "cordova-plugin-networkinterface",
-    "cordova-plugin-chrome-apps-sockets-tcp"
+    "cordova-plugin-chrome-apps-sockets-tcp",
+    "cordova-plugin-zeroconf"
   ],
   "cordovaPlatforms": [
     "android",

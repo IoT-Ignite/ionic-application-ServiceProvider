@@ -1,0 +1,34 @@
+<ion-view title="Add Gateway" id="page9" class=" " hide-back-button="configureInProgress">
+  <ion-content padding="true" class="has-header">
+    <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)"
+      dismiss-on-timeout="{{alert.timeout}}">{{alert.msg}}</div>
+
+      <div ng-show="configureInProgress" style="text-align: center;">
+        <br>
+        Configuring Gateway
+        <br>
+        <ion-spinner class="spinner-android"></ion-spinner>
+        <br>
+        <div uib-alert ng-repeat="alert in logs" ng-class="'alert-' + (alert.type || 'warning')" close="closeLog($index)"
+          dismiss-on-timeout="{{alert.timeout}}">{{alert.msg}}</div>
+      </div>
+
+      <div ng-hide="configureInProgress" style="text-align: center;">
+        <form id="addGateway-form2" class="list ">
+          <div class="list">
+          <label class="item item-input item-select">
+            <div class="input-label">
+              Mode
+            </div>
+            <select ng-model="formData.PROFILE_NAME">
+              <option ng-repeat="profile in profiles">{{profile.name}}</option>
+            </select>
+          </label>
+        </div>
+        </form>
+        <button id="addGateway-button26" class=" button button-positive  button-block "
+                ng-click="connectToNSDGateway()">ADD GATEWAY
+        </button>
+      </div>
+  </ion-content>
+</ion-view>
