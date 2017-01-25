@@ -1,5 +1,10 @@
 # Overview
 Welcome to IoT-Ignite Service Provider Application (SPA) documentation. This Ionic HTML 5 sample mobile application shows how a Service Provider interacts with Gateways, Nodes and IoT Ignite Cloud APIs found in IoT-Ignite platform. For full information about IoT-Ignite please visit [iot-ignite.com](http://www.iot-ignite.com).
+
+Github Page : [github.com/IoT-Ignite/ionic-application-ServiceProvider](https://github.com/IoT-Ignite/ionic-application-ServiceProvider)
+
+Full Documentation: [iot-ignite.github.io/ionic-application-ServiceProvider/](https://iot-ignite.github.io/ionic-application-ServiceProvider/)
+
 # Service Provider
 IoT-Ignite is a public platform for makers or IoT service providers. We provide IoT-Ignite service libraries, application samples that discovers and registers your nodes and gateways easily, ready for developers and REST APIs for cloud communication of your services.
 # Sample Application
